@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Nợ xấu</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
+            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" type="text/css" href="conno.css">
 </head>
 
@@ -28,59 +31,8 @@
             </div>
         </section>
         <section class="table__body">
-            <table>
-                <thead>
-                    <tr>
-                        <th> Id </th>
-                        <th> Tên </th>
-                        <th> Địa chỉ </th>
-                        <th> Ngày nợ </th>
-                        <th> Tình trạng </th>
-                        <th> Số tiền nợ </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td> 1 </td>
-                        <td> Long</td>
-                        <td> Seoul </td>
-                        <td> 17 Dec, 2022 </td>
-                        <td>
-                            <p class="status datrano">Đã trả nợ</p>
-                        </td>
-                        <td><button class="details-button">Chi tiết</button></td>
-                    </tr>
-                    <tr>
-                        <td> 2 </td>
-                        <td> Hoan </td>
-                        <td> Kathmandu </td>
-                        <td> 27 Aug, 2023 </td>
-                        <td>
-                            <p class="status tronno">Trốn nợ</p>
-                        </td>
-                        <td><button class="details-button">Chi tiết</button></td>
-                    </tr>
-                    <tr>
-                        <td> 3</td>
-                        <td> Hoi </td>
-                        <td> Tokyo </td>
-                        <td> 14 Mar, 2023 </td>
-                        <td>
-                            <p class="status trongquatrinhtrano">Đang trả nợ</p>
-                        </td>
-                        <td><button class="details-button">Chi tiết</button></td>
-                    </tr>
-                    <tr>
-                        <td> 4</td>
-                        <td> Minh</td>
-                        <td> Tokyo </td>
-                        <td> 14 Mar, 2024 </td>
-                        <td>
-                            <p class="status trongquatrinhtrano">Đang trả nợ</p>
-                        </td>
-                        <td><button class="details-button">Chi tiết</button></td>
-                    </tr>
-                </tbody>
+            <table id="debtor_table">
+
             </table>
         </section>
         <div class="back-button">
@@ -88,7 +40,40 @@
         </div>
     </main>
     <script src="script1.js"></script>
-
+    <script>
+        showDebtors()
+        function showDebtors(){
+            axios.get('http://localhost:8080/debtors/main').then((respone)=>{
+                let data = respone.data;
+                console.log(data);
+                let html = `<thead>
+                    <tr>
+                        <th> Id </th>
+                        <th> Tên </th>
+                        <th> Địa chỉ </th>
+                        <th> Số điện thoại </th>
+                        <th> Tình trạng </th>
+                        <th> Số tiền nợ </th>
+                    </tr>
+                </thead>
+                <tbody >`;
+                for(let i=0;i < data.length;i++){
+                    html += `<tr>
+                        <td> ${data[i].cccd}</td>
+                        <td> ${data[i].name}</td>
+                        <td> ${data[i].address} </td>
+                        <td> ${data[i].phone}</td>
+                        <td>
+                            <p class="status datrano">${data[i].status}</p>
+                        </td>
+                        <td><button class="details-button">Chi tiết</button></td>
+                    </tr>`;
+                }
+                html += `</tbody>`
+                document.getElementById('debtor_table').innerHTML = html;
+            })
+        }
+    </script>
 </body>
 
 </html>

@@ -161,17 +161,17 @@
                             <div class="card-body pb-2">
                                 <!-- Content for next-info tab -->
                                 <div class="form-group">
-                                    <label class="form-label">Số tiền</label>
-                                    <input type="text" class="form-control rounded-form">
+                                    <label class="form-label" >Số tiền</label>
+                                    <input type="text" class="form-control rounded-form" id="amount">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Văn xin nợ</label>
                                     <textarea class="form-control rounded-form"
-                                        rows="5"></textarea>
+                                        rows="5" id="comment"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Ngày vay</label>
-                                    <input type="date" class="form-control rounded-form" value="">
+                                    <input type="date" class="form-control rounded-form" value="" id="date">
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Số CCCD người vay: </label>
@@ -179,7 +179,7 @@
                                 </div>
 
                                 <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary btn-rounded">Thêm</button>&nbsp;
+                                    <button type="button" class="btn btn-primary btn-rounded" onclick="addDebt()">Thêm</button>&nbsp;
                                 </div>
                             </div>
                         </div>
@@ -213,12 +213,8 @@
         function uploadImage(e) {
             let fbBucketName = 'images';
             let file = e.target.files[0];
-            console.log(file);
-            var blob = new Blob([e.target.result], { type: "image/jpeg" });
-            var storageUrl = 'noticias/imagenes/';
-            var storageRef = firebase.storage().ref(storageUrl + file.name);
-            console.warn(file); // Watch Screenshot
-            var uploadTask = storageRef.put(blob);
+            let storageRef = firebase.storage().ref(`${fbBucketName}/${file.name}`);
+            let uploadTask = storageRef.put(file);
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
                 function (snapshot) {
                     switch (snapshot.state) {
@@ -281,7 +277,26 @@
     reader.readAsDataURL(event.target.files[0]);
     }
     function addDebt(){
-
+             let amount = document.getElementById('amount').value;
+             let comment = document.getElementById('comment').value;
+             let date  =document.getElementById('date').value;
+             let cccd = document.getElementById('Id_debtor').value;
+             let debt = {
+                 amount: amount,
+                 comment: comment,
+                 date: date,
+                 debtor: {
+                     cccd: cccd
+                 }
+             }
+             axios.post('http://localhost:8080/debts',debt).then((respone)=>{
+                   let message = respone.data;
+                   alert(message);
+                document.getElementById('amount').value ='';
+                document.getElementById('comment').value ='';
+                document.getElementById('date').value ='';
+                document.getElementById('Id_debtor').value='';
+             });
     }
     function showDebtor(){
 
