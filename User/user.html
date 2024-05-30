@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="user.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
+            integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .rounded-container {
@@ -109,42 +113,47 @@
                         </div>
                         <div class="tab-pane fade" id="account-info">
                             <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Ảnh</label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="imageUpload" accept="image/*" onchange="previewImage(event)">
-                                        <label class="custom-file-label rounded-button" for="imageUpload">Chọn ảnh</label>
+                                <div class="row" style="display: flex; flex-wrap: nowrap">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Ảnh</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="imageUpload" onchange="uploadImage(event)">
+                                                <label class="custom-file-label rounded-button" for="imageUpload">Chọn ảnh</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label"></label>
+                                            <div class="img-container">
+                                                <img id="imagePreview" src="" alt="Your Image" class="img-thumbnail rounded-circle" style="display:none; width: 300px; height: 400px; ">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label"></label>
-                                    <div class="img-container">
-                                        <img id="imagePreview" src="#" alt="Your Image" class="img-thumbnail rounded-circle" style="display:none; max-width: 200px;">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Tên</label>
+                                            <input type="text" class="form-control rounded-form"  id="debtor_name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">CCCD</label>
+                                            <input type="text" class="form-control rounded-form" id="debtor_id">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Tuổi</label>
+                                            <input type="text" class="form-control rounded-form" id="debtor_age">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" >SĐT</label>
+                                            <input type="text" class="form-control rounded-form" id="debtor_phone">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Địa chỉ</label>
+                                            <input type="text" class="form-control rounded-form" id="debtor_address">
+                                        </div>
+                                        <div class="text-right mt-3">
+                                            <button type="button" class="btn btn-primary btn-rounded" onclick="add_debtor()">Thêm</button>&nbsp;
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Tên</label>
-                                    <input type="text" class="form-control rounded-form" value="Quỷ">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">CCCD</label>
-                                    <input type="text" class="form-control rounded-form" value="0123456789">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Tuổi</label>
-                                    <input type="text" class="form-control rounded-form" value="0123456789">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">SĐT</label>
-                                    <input type="text" class="form-control rounded-form" value="0123456789">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Địa chỉ</label>
-                                    <input type="text" class="form-control rounded-form" value="0123456789">
-                                </div>
-                              
-                                <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary btn-rounded">Thêm</button>&nbsp;
                                 </div>
                             </div>
                         </div>
@@ -158,18 +167,15 @@
                                 <div class="form-group">
                                     <label class="form-label">Văn xin nợ</label>
                                     <textarea class="form-control rounded-form"
-                                        rows="5">Hiện tại em chơi tài xỉu báo nhà 5 tỷ em muốn vay nợ ạ</textarea>
+                                        rows="5"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label">Ngày vay</label>
                                     <input type="date" class="form-control rounded-form" value="">
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="cachvay">Lựa chọn: </label>
-                                    <select name="cachvay" id="cachvay">
-                                        <option value="CCCD">CCCD</option>
-                                        <option value="Sodo">Sổ đó</option>                                
-                                      </select>
+                                    <label class="form-label">Số CCCD người vay: </label>
+                                    <input type="text" class="form-control rounded-form" id="Id_debtor">
                                 </div>
 
                                 <div class="text-right mt-3">
@@ -180,7 +186,6 @@
                         <div class="tab-pane fade" id="bangno-info">
                             <div class="card-body pb-2">
                                 <iframe src="Conno/conno.html" frameborder="0" style="width: 100%; height: 500px;"></iframe>
-
                             </div>
                         </div>
                     </div>
@@ -191,7 +196,79 @@
     </div>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAewhdQuJuOebuT8PqvOvV_izJSMOvfSFQ",
+            authDomain: "demofirebase-6e7a1.firebaseapp.com",
+            projectId: "demofirebase-6e7a1",
+            storageBucket: "demofirebase-6e7a1.appspot.com",
+            messagingSenderId: "600682198593",
+            appId: "1:600682198593:web:e88c7a4373648fabc3b8c0",
+            measurementId: "G-DLSK3MYRFK"
+        };
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script type="text/javascript">
+        function uploadImage(e) {
+            let fbBucketName = 'images';
+            let file = e.target.files[0];
+            console.log(file);
+            var blob = new Blob([e.target.result], { type: "image/jpeg" });
+            var storageUrl = 'noticias/imagenes/';
+            var storageRef = firebase.storage().ref(storageUrl + file.name);
+            console.warn(file); // Watch Screenshot
+            var uploadTask = storageRef.put(blob);
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+                function (snapshot) {
+                    switch (snapshot.state) {
+                        case firebase.storage.TaskState.PAUSED:
+                            break;
+                        case firebase.storage.TaskState.RUNNING:
+                            break;
+                    }
+                }, function (error) {
+                    switch (error.code) {
+                        case 'storage/unauthorized':
+                            break;
+                        case 'storage/canceled':
+                            break;
+                        case 'storage/unknown':
+                            break;
+                    }
+                }, function () {
+                    let downloadURL = uploadTask.snapshot.downloadURL;
+                    localStorage.setItem('image', downloadURL);
+                    document.getElementById('imagePreview').src = downloadURL;
+                    document.getElementById('imagePreview').style.display = 'block';
+                });
+        }
+
+        function add_debtor(){
+            let name = document.getElementById("debtor_name").value;
+            let cccd = document.getElementById("debtor_id").value;
+            let age = document.getElementById("debtor_age").value;
+            let phone = document.getElementById("debtor_phone").value;
+            let address = document.getElementById("debtor_address").value;
+            let image = localStorage.getItem('image');
+            let debtor = {
+                name: name,
+                cccd: cccd,
+                age: age,
+                phone: phone,
+                address: address,
+                image: image
+            }
+            axios.post('http://localhost:8080/debtors',debtor).then((respone)=>{
+                  name.value = '';
+                  cccd.value = '';
+                  age.value = '';
+                  phone.value = '';
+                  address.value = '';
+                  document.getElementById('imagePreview').src ='';
+                  alert('Đã thêm con nợ mới');
+            })
+        }
     function previewImage(event) {
     const reader = new FileReader();
     reader.onload = function(){
@@ -202,7 +279,13 @@
             alert(fileName + ' đã được chọn!');
     };
     reader.readAsDataURL(event.target.files[0]);
-}
+    }
+    function addDebt(){
+
+    }
+    function showDebtor(){
+
+    }
     </script>
 </body>
 
