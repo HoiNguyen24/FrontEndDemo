@@ -99,34 +99,33 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
     border-radius: 10px;
     width: 50%;
     box-sizing: border-box;}
-    .custom-file-input {
-        display: none;
-    }
-    
-    .custom-file-label {
-        display: inline-block;
-        cursor: pointer;
-        background-color: #6f42c1; /* Purple color */
-        color: white;
-        padding: 5px 10px; /* Smaller padding */
-        border-radius: 50px; /* Rounder shape */
-        text-align: center;
-        font-size: 12px; /* Smaller font size */
-    }
-    
-    .custom-file-label:hover {
-        background-color: #5a3290; /* Darker purple on hover */
-    }
-    
-    .img-thumbnail {
-        border: none;
-    }
-    
-    .rounded-button {
-        border-radius: 50px;
-    }
-    
-    .rounded-circle {
-        border-radius: 50%;
-    }
- 
+.custom-file-input {
+    display: none;
+}
+
+.custom-file-label {
+    display: inline-block;
+    cursor: pointer;
+    background-color: #6f42c1; /* Purple color */
+    color: white;
+    padding: 5px 10px; /* Smaller padding */
+    border-radius: 50px; /* Rounder shape */
+    text-align: center;
+    font-size: 12px; /* Smaller font size */
+}
+
+.custom-file-label:hover {
+    background-color: #5a3290; /* Darker purple on hover */
+}
+
+.img-thumbnail {
+    border: none;
+}
+
+.rounded-button {
+    border-radius: 50px;
+}
+
+.rounded-circle {
+    border-radius: 50%;
+}

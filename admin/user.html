@@ -382,11 +382,7 @@
 </head>
 
 <body>
-    <div class="container light-style flex-grow-1 container-p-y">
-        <h4 class="font-weight-bold py-3 mb-4">
-           Họ tên :     
-        </h4>
-        
+    <div class="container-xxl light-style flex-grow-1 container-p-y">
         <div class="card overflow-hidden rounded-container">
             <div class="row no-gutters row-bordered row-border-light">
                 <div class="col-md-3 pt-0">
@@ -397,16 +393,11 @@
                             href="#account-change-password">Đổi mật khẩu</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#account-info">Thêm con nợ</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                        <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#themkhoanno-info" >Thêm khoản nợ</a>
-
                         <a class="list-group-item list-group-item-action" data-toggle="list" 
                         href="#bangno-info"   style="cursor: pointer;" >Bảng nợ</a>
                         <a class="list-group-item list-group-item-action" data-toggle="list"
-                            style="cursor: pointer;">Quay về trang</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#excel-info" >Excel</a>
-                            <a class="list-group-item list-group-item-action" data-toggle="list"
                             href="#next-info" ></a>
                          
                     </div>
@@ -683,7 +674,6 @@
             }
             axios.get('http://localhost:8080/debtors/main',auth).then((respone)=>{
                 let data = respone.data;
-                console.log(data);
                 let html = `<thead>
                     <tr>
                         <th> Id </th>
@@ -692,6 +682,7 @@
                         <th> Số điện thoại </th>
                         <th> Tình trạng </th>
                         <th> Số tiền nợ </th>
+                        <th>Thông tin chi tiết</th>
                     </tr>
                 </thead>
                 <tbody >`;
@@ -704,10 +695,49 @@
                         <td>
                             <p class="status datrano">${data[i].status}</p>
                         </td>
+                        <td>
+                            <button class="details-button" onclick="showDebts(${data[i].id})">Chi tiết</button>
+                        </td>
                         <td><button class="details-button" onclick="showDetails(${data[i].id})">Chi tiết</button></td>
                     </tr>`;
                 }
                 html += `</tbody>`
+                document.getElementById('debtor_table').innerHTML = html;
+            })
+        }
+        function showDebts(id){
+            let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            let auth = {
+                headers: {
+                    "Authorization": `Bearer ${currentUser.accessToken}`
+                }
+            }
+            axios.get(`http://localhost:8080/debts/debtors/${id}`,auth).then((respone)=>{
+                let data = respone.data;
+                let html = `<thead>
+                    <tr>
+                        <th> Id </th>
+                        <th> Số tiền nợ </th>
+                        <th> Lí do</th>
+                        <th> Ngày vay</th>
+                    </tr>
+                </thead>
+                <tbody >`;
+                for(let i=0;i < data.length;i++){
+                    html += `<tr>
+                        <td> ${data[i].id}</td>
+                        <td> ${data[i].amount}</td>
+                        <td> ${data[i].comment} </td>
+                        <td> ${data[i].date}</td>
+                    </tr>`;
+                }
+                html += `</tbody>
+                         <div>
+                             <div class="back-button">
+                                    <a class="btn"  id="backButton" onclick="showDebtors()">Quay lại</a>
+                             </div>
+                        </div>
+                         `
                 document.getElementById('debtor_table').innerHTML = html;
             })
         }
@@ -720,6 +750,7 @@
             }
             axios.get(`http://localhost:8080/debtors/${id}`,auth).then((respone)=>{
                 let data = respone.data;
+                console.log(data);
                 let html = `
                             <div class="card-body pb-2">
                                 <div class="row" style="display: flex; flex-wrap: nowrap">
@@ -735,6 +766,10 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
+                                    <div class="form-group" id="re_user_label">
+                                          <label class="form-label">Người thu nợ</label>
+                                          <input type="text" class="form-control rounded-form" disabled>
+                                    </div>
                                         <div class="form-group">
                                             <label class="form-label">ID</label>
                                             <input type="text" class="form-control rounded-form"  id="re_debtor_id" value="${data.id}" disabled>
