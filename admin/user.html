@@ -24,6 +24,359 @@
         body {
             background: linear-gradient(135deg, #6e8efb, #a777e3);
         }
+        .back-button {
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 30px;
+        }
+
+        .back-button .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-button .btn:hover {
+            background-color: #0056b3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        @media print {
+            .table, .table__body {
+                overflow: visible;
+                height: auto !important;
+                width: auto !important;
+            }
+        }
+
+        /*@page {
+            size: landscape;
+            margin: 0;
+        }*/
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        main.table {
+            width: 82vw;
+            height: 90vh;
+            background-color: #fff5;
+
+            backdrop-filter: blur(7px);
+            box-shadow: 0 .4rem .8rem #0005;
+            border-radius: .8rem;
+
+            overflow: hidden;
+        }
+
+        .table__header {
+            width: 100%;
+            height: 10%;
+            background-color: #fff4;
+            padding: .8rem 1rem;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table__header .input-group {
+            width: 35%;
+            height: 100%;
+            background-color: #fff5;
+            padding: 0 .8rem;
+            border-radius: 2rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            transition: .2s;
+        }
+
+        .table__header .input-group:hover {
+            width: 45%;
+            background-color: #fff8;
+            box-shadow: 0 .1rem .4rem #0002;
+        }
+
+        .table__header .input-group img {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        .table__header .input-group input {
+            width: 100%;
+            padding: 0 .5rem 0 .3rem;
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .table__body {
+            width: 95%;
+            max-height: calc(89% - 1.6rem);
+            background-color: #fffb;
+
+            margin: .8rem auto;
+            border-radius: .6rem;
+
+            overflow: auto;
+        }
+
+
+        .table__body::-webkit-scrollbar{
+            width: 0.5rem;
+            height: 0.5rem;
+        }
+
+        .table__body::-webkit-scrollbar-thumb{
+            border-radius: .5rem;
+            background-color: #0004;
+            visibility: hidden;
+        }
+
+        .table__body:hover::-webkit-scrollbar-thumb{
+            visibility: visible;
+        }
+
+
+        table {
+            width: 100%;
+        }
+
+        td img {
+            width: 36px;
+            height: 36px;
+            margin-right: .5rem;
+            border-radius: 50%;
+
+            vertical-align: middle;
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: #d5d1defe;
+            cursor: pointer;
+            text-transform: capitalize;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #0000000b;
+        }
+
+        tbody tr {
+            --delay: .1s;
+            transition: .5s ease-in-out var(--delay), background-color 0s;
+        }
+
+        tbody tr.hide {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        tbody tr:hover {
+            background-color: #fff6 !important;
+        }
+
+        tbody tr td,
+        tbody tr td p,
+        tbody tr td img {
+            transition: .2s ease-in-out;
+        }
+
+        tbody tr.hide td,
+        tbody tr.hide td p {
+            padding: 0;
+            transition: .2s ease-in-out .5s;
+        }
+
+        tbody tr.hide td img {
+            width: 0;
+            height: 0;
+            transition: .2s ease-in-out .5s;
+        }
+
+        .status {
+            padding: .4rem 0;
+            border-radius: 2rem;
+            text-align: center;
+        }
+
+        .status.datrano {
+            background-color: #86e49d;
+            color: #006b21;
+        }
+
+        .status.tronno {
+            background-color: #d893a3;
+            color: #b30021;
+        }
+
+        .status.trongquatrinhtrano {
+            background-color: #ebc474;
+        }
+        .status.chitiet {
+            background-color: #eb74e3;
+        }
+
+        .status.shipped {
+            background-color: #6fcaea;
+        }
+
+
+        @media (max-width: 1000px) {
+            td:not(:first-of-type) {
+                min-width: 12.1rem;
+            }
+        }
+
+        thead th span.icon-arrow {
+            display: inline-block;
+            width: 1.3rem;
+            height: 1.3rem;
+            border-radius: 50%;
+            border: 1.4px solid transparent;
+
+            text-align: center;
+            font-size: 1rem;
+
+            margin-left: .5rem;
+            transition: .2s ease-in-out;
+        }
+
+        thead th:hover span.icon-arrow{
+            border: 1.4px solid #6c00bd;
+        }
+
+        thead th:hover {
+            color: #6c00bd;
+        }
+
+        thead th.active span.icon-arrow{
+            background-color: #6c00bd;
+            color: #fff;
+        }
+
+        thead th.asc span.icon-arrow{
+            transform: rotate(180deg);
+        }
+
+        thead th.active,tbody td.active {
+            color: #6c00bd;
+        }
+
+        .export__file {
+            position: relative;
+        }
+
+        .export__file .export__file-btn {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            transition: .2s ease-in-out;
+        }
+
+        .export__file .export__file-btn:hover {
+            background-color: #fff;
+            transform: scale(1.15);
+            cursor: pointer;
+        }
+
+        .export__file input {
+            display: none;
+        }
+
+        .export__file .export__file-options {
+            position: absolute;
+            right: 0;
+
+            width: 12rem;
+            border-radius: .5rem;
+            overflow: hidden;
+            text-align: center;
+
+            opacity: 0;
+            transform: scale(.8);
+            transform-origin: top right;
+
+            box-shadow: 0 .2rem .5rem #0004;
+
+            transition: .2s;
+        }
+
+        .export__file input:checked + .export__file-options {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 100;
+        }
+
+        .export__file .export__file-options label{
+            display: block;
+            width: 100%;
+            padding: .6rem 0;
+            background-color: #f2f2f2;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            transition: .2s ease-in-out;
+        }
+
+        .export__file .export__file-options label:first-of-type{
+            padding: 1rem 0;
+            background-color: #86e49d !important;
+        }
+
+        .export__file .export__file-options label:hover{
+            transform: scale(1.05);
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .export__file .export__file-options img{
+            width: 2rem;
+            height: auto;
+        }
+        .details-button {
+            background: linear-gradient(to right, #4CAF50, #2E7D32);
+            border: none;
+            color: white;
+            padding: 10px 40px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        .details-button:hover {
+            background: linear-gradient(to right, #2E7D32, #4CAF50);
+        }
+
+
     </style>
 
 </head>
@@ -184,7 +537,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="bangno-info" style="height: 800px !important;">
+                        <div class="tab-pane fade" id="bangno-info" style="min-height: 800px !important;">
                             <div class="card-body pb-2 " style="">
                                 <div class="table" id="customers_table">
                                     <section class="table__header">
@@ -259,6 +612,11 @@
 
         function add_debtor(){
             let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            let auth = {
+                headers: {
+                    "Authorization": `Bearer ${currentUser.accessToken}`
+                }
+            }
             let name = document.getElementById("debtor_name").value;
             let cccd = document.getElementById("debtor_id").value;
             let age = document.getElementById("debtor_age").value;
@@ -273,17 +631,27 @@
                address: address,
                image: image
            }
-            axios.post('http://localhost:8080/admin/debtors',debtor).then((respone)=>{
-                name.value = '';
-                cccd.value = '';
-                age.value = '';
-                phone.value = '';
-                address.value = '';
-                document.getElementById('imagePreview').src ='';
+            axios.post('http://localhost:8080/debtors',debtor,auth).then((respone)=>{
+                resetDebtors();
                 alert('Đã thêm con nợ mới');
             })
+
+        }
+        function resetDebtors(){
+            document.getElementById("debtor_name").value = '';
+            document.getElementById("debtor_id").value = '';
+            document.getElementById("debtor_age").value ='';
+            document.getElementById("debtor_phone").value ='';
+            document.getElementById("debtor_address").value ='';
+            document.getElementById('imagePreview').src ='';
         }
     function addDebt(){
+        let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        let auth = {
+            headers: {
+                "Authorization": `Bearer ${currentUser.accessToken}`
+            }
+        }
              let amount = document.getElementById('amount').value;
              let comment = document.getElementById('comment').value;
              let date  =document.getElementById('date').value;
@@ -296,7 +664,7 @@
                      cccd: cccd
                  }
              }
-             axios.post('http://localhost:8080/admin/debts',debt).then((respone)=>{
+             axios.post('http://localhost:8080/debts',debt,auth).then((respone)=>{
                    let message = respone.data;
                    alert(message);
                 document.getElementById('amount').value ='';
@@ -307,7 +675,13 @@
     }
         showDebtors()
         function showDebtors(){
-            axios.get('http://localhost:8080/admin/debtors/main').then((respone)=>{
+            let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            let auth = {
+                headers: {
+                    "Authorization": `Bearer ${currentUser.accessToken}`
+                }
+            }
+            axios.get('http://localhost:8080/debtors/main',auth).then((respone)=>{
                 let data = respone.data;
                 console.log(data);
                 let html = `<thead>
@@ -338,7 +712,13 @@
             })
         }
         function showDetails(id){
-            axios.get(`http://localhost:8080/admin/debtors/${id}`).then((respone)=>{
+            let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            let auth = {
+                headers: {
+                    "Authorization": `Bearer ${currentUser.accessToken}`
+                }
+            }
+            axios.get(`http://localhost:8080/debtors/${id}`,auth).then((respone)=>{
                 let data = respone.data;
                 let html = `
                             <div class="card-body pb-2">
@@ -346,10 +726,6 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label class="form-label">Ảnh</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="imageUpload" onchange="uploadImage(event)">
-                                                <label class="custom-file-label rounded-button" for="imageUpload">Chọn ảnh</label>
-                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label"></label>
@@ -360,27 +736,31 @@
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
+                                            <label class="form-label">ID</label>
+                                            <input type="text" class="form-control rounded-form"  id="re_debtor_id" value="${data.id}" disabled>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="form-label">Tên</label>
-                                            <input type="text" class="form-control rounded-form"  id="debtor_name" value="${data.name}">
+                                            <input type="text" class="form-control rounded-form"  id="re_debtor_name" value="${data.name}" disabled>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">CCCD</label>
-                                            <input type="text" class="form-control rounded-form" id="debtor_id" value="${data.cccd}" >
+                                            <input type="text" class="form-control rounded-form" id="re_debtor_cccd" value="${data.cccd}" disabled>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Tuổi</label>
-                                            <input type="text" class="form-control rounded-form" id="debtor_age" value="${data.age}" >
+                                            <input type="text" class="form-control rounded-form" id="re_debtor_age" value="${data.age}" disabled>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" >SĐT</label>
-                                            <input type="text" class="form-control rounded-form" id="debtor_phone" value="${data.phone}" >
+                                            <input type="text" class="form-control rounded-form" id="re_debtor_phone" value="${data.phone}" disabled>
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Địa chỉ</label>
-                                            <input type="text" class="form-control rounded-form" id="debtor_address" value="${data.address}" disabled>
+                                            <input type="text" class="form-control rounded-form" id="re_debtor_address" value="${data.address}" disabled>
                                         </div>
-                                        <div class="text-right mt-3">
-                                            <button type="button" class="btn btn-primary btn-rounded" onclick="edit()">Sửa</button>&nbsp;
+                                        <div class="text-right mt-3" id="button_bar">
+                                            <button type="button" class="btn btn-primary btn-rounded" onclick="edit(${data.id})" id="re_edit">Sửa</button>&nbsp;
                                         </div>
                                     </div>
                                 </div>
@@ -395,8 +775,46 @@
                 document.getElementById('debtor_table').innerHTML = html;
             })
         }
-        function edit() {
-              document.getElementById('debtor_address').removeAttribute("disabled");
+        function edit(a) {
+              document.getElementById('re_debtor_address').removeAttribute("disabled");
+              document.getElementById('re_debtor_name').removeAttribute("disabled");
+              document.getElementById('re_debtor_cccd').removeAttribute("disabled");
+              document.getElementById('re_debtor_age').removeAttribute("disabled");
+              document.getElementById('re_debtor_phone').removeAttribute("disabled");
+              document.getElementById('button_bar').innerHTML = `
+                       <button type="button" class="btn btn-primary btn-rounded" onclick="submitedit()" id="re_commit">Xác nhận</button>&nbsp;
+                       <button type="button" class="btn btn-primary btn-rounded" onclick="showDetails(${a})" id="re_exit">Hủy</button>&nbsp;
+              `
+
+        }
+        function submitedit(){
+            let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+            let auth = {
+                headers: {
+                    "Authorization": `Bearer ${currentUser.accessToken}`
+                }
+            }
+            let  id = document.getElementById("re_debtor_id").value;
+            let name = document.getElementById("re_debtor_name").value;
+            let cccd = document.getElementById("re_debtor_cccd").value;
+            let age = document.getElementById("re_debtor_age").value;
+            let phone = document.getElementById("re_debtor_phone").value;
+            let address = document.getElementById("re_debtor_address").value;
+            let debtor = {
+                id: id,
+                name: name,
+                cccd: cccd,
+                age: age,
+                phone: phone,
+                address: address,
+            }
+            axios.post('http://localhost:8080/debtors',debtor,auth).then((respone)=>{
+                resetDebtors();
+                alert('Đã sửa con nợ thành công')
+                showDebtors()
+            })
+
+
         }
     </script>
     <script src="script1.js" type="text/javascript"></script>
