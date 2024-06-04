@@ -7,7 +7,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
+				integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
+				crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <!--font-family-->
 		<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
@@ -90,7 +92,7 @@
 				                    <li class="scroll"><a href="#service">Dịch vụ</a></li>
 				                    <li class="scroll"><a href="#new-cars">Các con nợ</a></li>
 				                    <li class="scroll"><a href="#clients-say">Con nợ mới</a></li>
-									<li class="scroll"><a href="#brand" onclick="window.location.href='User/user.html'">Đăng nhập</a></li>
+									<li class="scroll"><a href="#brand" onclick="window.location.href='login.html'">Đăng nhập</a></li>
 				                </ul><!--/.nav -->
 				            </div><!-- /.navbar-collapse -->
 				        </div><!--/.container-->
@@ -336,7 +338,31 @@
 
 		
 
-
+         <script>
+			 let currentUser = localStorage.getItem("currentUser");
+			 if (!currentUser) {
+			 } else {
+				 showHome();
+			 }
+			 function showHome() {
+				 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+				 let auth = {
+					 headers: {
+						 "Authorization": `Bearer ${currentUser.accessToken}`
+					 }
+				 }
+				 if(currentUser.roles[0].authority=="ROLE_ADMIN")
+					 axios.get("http://localhost:8080/admin/users", auth).then((response) => {
+						 let data = response.data;
+						 window.location.href = "/admin/user.html";
+					 })
+				 else
+					 axios.get("http://localhost:8080/users", auth).then((response) => {
+						 let data = response.data;
+						 window.location.href = "/user/user.html";
+					 })
+			 }
+		 </script>
 		
 		<!-- Include all js compiled plugins (below), or include individual files as needed -->
 

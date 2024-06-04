@@ -35,9 +35,6 @@
 
             </table>
         </section>
-        <div class="back-button">
-            <a href="#" class="btn"  id="backButton">Quay lại</a>
-        </div>
     </main>
     <script src="script1.js"></script>
     <script>
@@ -66,12 +63,15 @@
                         <td>
                             <p class="status datrano">${data[i].status}</p>
                         </td>
-                        <td><button class="details-button">Chi tiết</button></td>
+                        <td><button class="details-button" onclick="showDetails(${data[i].id})">Chi tiết</button></td>
                     </tr>`;
                 }
                 html += `</tbody>`
                 document.getElementById('debtor_table').innerHTML = html;
             })
+        }
+        function showDetails(id){
+
         }
     </script>
 </body>

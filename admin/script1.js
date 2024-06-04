@@ -15,7 +15,3 @@ searchInput.addEventListener('input', function() {
     }
   }
 });
-document.getElementById('backButton').addEventListener('click', function() {
-  // Chuyển hướng về trang index.html
-  window.location.href = 'file:///C:/Users/thats/Downloads/Nợ%20xấu/User/user.html';
-});
